@@ -121,13 +121,3 @@ Other:
 
 ### Admin Panel
 ![Admin](screenshots/admin.png)
-
----
-
-## Running the Project
-
-### Backend
-```bash
-cd backend
-npm install
-npm run dev
