@@ -8,3 +8,4 @@ coverage/
 *.log
 backend/club.db
 backend/logs/
+**/desktop.ini
