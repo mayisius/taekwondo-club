@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 
 const API_BASE = "http://localhost:3001/api";
 
-function MessageInbox({ token, onClose, onLogout }) {
+function MessageInbox({ token, onClose, onLogout, onMessagesUpdated }) {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("pending");
@@ -70,6 +70,10 @@ function MessageInbox({ token, onClose, onLogout }) {
       }
 
       await fetchMessages(activeTab, page);
+
+      if (onMessagesUpdated) {
+        onMessagesUpdated();
+      }
     } catch (error) {
       setStatusMessage(error.message);
     }
@@ -119,6 +123,10 @@ function MessageInbox({ token, onClose, onLogout }) {
 
       setActiveTab("answered");
       setPage(1);
+
+      if (onMessagesUpdated) {
+        onMessagesUpdated();
+      }
     } catch (error) {
       setStatusMessage(error.message);
     }
@@ -182,9 +190,9 @@ function MessageInbox({ token, onClose, onLogout }) {
 
         {loading ? (
           <p>Cargando mensajes...</p>
-              ) : filteredMessages.length === 0 ? (
-                  <p className="messages-empty">No hay mensajes en esta bandeja.</p>
-              ) : (
+        ) : filteredMessages.length === 0 ? (
+          <p className="messages-empty">No hay mensajes en esta bandeja.</p>
+        ) : (
           <div className="messages-list">
             {filteredMessages.map((message) => (
               <article
@@ -224,12 +232,17 @@ function MessageInbox({ token, onClose, onLogout }) {
                 <div className="message-actions">
                   {message.status === "pending" && (
                     <>
-                      <button type="button" onClick={() => handleReplySend(message)}>
+                      <button
+                        type="button"
+                        onClick={() => handleReplySend(message)}
+                      >
                         Responder y enviar
                       </button>
                       <button
                         type="button"
-                        onClick={() => updateMessageStatus(message.id, "answered")}
+                        onClick={() =>
+                          updateMessageStatus(message.id, "answered")
+                        }
                       >
                         Mover a contestados
                       </button>

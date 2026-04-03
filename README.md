@@ -4,6 +4,12 @@ This project is a full-stack web application developed for a Taekwondo club. It 
 
 ---
 
+## Preview
+
+![Home](screenshots/home-admin-badge.png)
+
+---
+
 ## Project Background
 
 The first version of this website was built as a simple static page using HTML and CSS, focused on presenting basic information about the club.
@@ -24,8 +30,7 @@ The design phase included:
 
 The final implementation was built directly based on this design.
 
-Figma prototype:
-(https://www.figma.com/proto/fq5wxFZx1ic4ZOZOkoeexy/Sin-t%C3%ADtulo?page-id=0%3A1&node-id=12-252&p=f&viewport=-479%2C18%2C0.39&t=NXWKtCGWDOSU75OB-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1%3A3)
+Figma prototype: (https://www.figma.com/proto/fq5wxFZx1ic4ZOZOkoeexy/Sin-t%C3%ADtulo?page-id=0%3A1&node-id=12-252&p=f&viewport=-479%2C18%2C0.39&t=NXWKtCGWDOSU75OB-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1%3A3)
 
 ---
 
@@ -36,19 +41,19 @@ The application consists of two main parts:
 ### Frontend
 - Built with React
 - Component-based structure
-- Handles navigation, UI rendering, and user interaction
+- Handles navigation, UI rendering, reviews integration, and user interaction
 
 ### Backend
 - Built with Node.js and Express
 - Provides a REST API for all data operations
-- Handles authentication, data storage, and email communication
+- Handles authentication, message storage, admin workflows, logging, and email communication
 
 ---
 
 ## Key Features
 
 ### Interactive Navigation
-- Central tatami element used as navigation hub
+- Central tatami element used as a navigation hub
 - Users access different sections by clicking specific areas
 - Structured UI flow from intro → home → detailed sections
 
@@ -59,14 +64,24 @@ The application consists of two main parts:
 ### Admin Panel
 - Secure login system using JWT authentication
 - Passwords stored using bcrypt hashing
-- Message management system with:
+- Protected message inbox with:
   - Status workflow (pending, answered, trash)
   - Pagination
   - Reply functionality
+  - Message status updates
+  - Pending message counter displayed in the admin icon
 
 ### Email Integration
 - Admin responses are sent directly via SMTP
 - Implemented using Nodemailer
+
+### Reviews Integration
+- Embedded Google Reviews widget for public user feedback
+- Direct link for users to leave a review
+
+### Logging
+- Backend activity and error logging
+- Logs stored in dedicated files for easier debugging and traceability
 
 ---
 
@@ -101,23 +116,23 @@ Authentication:
 
 Other:
 - Nodemailer (email integration)
+- Custom file-based logging
 - Git (version control)
 
 ---
 
 ## Screenshots
 
-### Intro
-![Intro](screenshots/intro.png)
+## Screenshots
 
-### Main View
-![Home](screenshots/home.png)
+### Navigation Hub
+![Tatami](screenshots/tatami-navigation.png)
 
-### Tatami Navigation
-![Tatami](screenshots/tatami-hub.png)
+### Contact Section
+![Contact](screenshots/contact-section.png)
 
-### Section Example
-![Section](screenshots/section.png)
+### Reviews Section
+![Reviews](screenshots/reviews-section.png)
 
 ### Admin Panel
 ![Admin](screenshots/admin.png)

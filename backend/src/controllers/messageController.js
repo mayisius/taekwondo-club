@@ -5,6 +5,7 @@ const {
   getMessageById,
   updateMessageStatus,
   saveReply,
+  countMessagesByStatus,
 } = require("../services/messageService");
 const { validateMessageInput } = require("../utils/validators");
 const { logInfo, logError } = require("../services/logger");
@@ -37,6 +38,15 @@ async function getMessages(req, res, next) {
 
     const result = await listMessages({ status, page, limit });
     return res.json(result);
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function getPendingMessagesCount(req, res, next) {
+  try {
+    const total = await countMessagesByStatus("pending");
+    return res.json({ total });
   } catch (error) {
     next(error);
   }
@@ -110,6 +120,7 @@ async function replyToMessage(req, res, next) {
 module.exports = {
   postMessage,
   getMessages,
+  getPendingMessagesCount,
   patchMessageStatus,
   replyToMessage,
 };

@@ -12,6 +12,7 @@ function TopNav({
   onChangeSection,
   onOpenAdmin,
   isAdminLogged,
+  pendingCount,
 }) {
   const getIcon = (section, whiteIcon, blackIcon) => {
     return activeSection === section ? blackIcon : whiteIcon;
@@ -23,6 +24,7 @@ function TopNav({
         <button
           className={`nav-pill ${activeSection === "home" ? "active" : ""}`}
           onClick={() => onChangeSection("home")}
+          type="button"
         >
           <img
             src={getIcon("home", homeWhite, homeBlack)}
@@ -34,6 +36,7 @@ function TopNav({
         <button
           className={`nav-pill ${activeSection === "location" ? "active" : ""}`}
           onClick={() => onChangeSection("location")}
+          type="button"
         >
           <img
             src={getIcon("location", locationWhite, locationBlack)}
@@ -45,6 +48,7 @@ function TopNav({
         <button
           className={`nav-pill ${activeSection === "heart" ? "active" : ""}`}
           onClick={() => onChangeSection("heart")}
+          type="button"
         >
           <img
             src={getIcon("heart", heartWhite, heartBlack)}
@@ -56,6 +60,7 @@ function TopNav({
         <button
           className={`nav-pill ${activeSection === "star" ? "active" : ""}`}
           onClick={() => onChangeSection("star")}
+          type="button"
         >
           <img
             src={getIcon("star", starWhite, starBlack)}
@@ -81,6 +86,10 @@ function TopNav({
             fill="currentColor"
           />
         </svg>
+
+        {isAdminLogged && pendingCount > 0 && (
+          <span className="admin-notification-badge">{pendingCount}</span>
+        )}
       </button>
     </nav>
   );

@@ -109,15 +109,15 @@ function HomeSection({ homeView, setHomeView }) {
   if (homeView === "hub") {
     return (
         <section className="tatami-hub-page">
-        <div className="tatami-hub-inner">
-            <button
+        <button
             type="button"
-            className="hub-exit-button"
+            className="back-arrow-button"
             onClick={() => setHomeView("landing")}
-            >
+          >
             ↩
-            </button>
-
+          </button>
+          
+          <div className="tatami-hub-inner">
             <div className="hub-tatami-zone">
             <img
                 src={tatamiHub}
@@ -267,13 +267,10 @@ function HomeSection({ homeView, setHomeView }) {
 
         <div className="classes-overlay">
           <h2>Clases y Horarios</h2>
-
+          <p className="classes-intro">
+            Se imparten clases los lunes y miércoles en los siguientes horarios:
+          </p>
           <div className="schedule-box">
-            <p className="schedule-intro">
-              Se imparten clases los lunes y miércoles en los siguientes
-              horarios:
-            </p>
-
             <div className="schedule-row">
               <span>Pequeños (4-7 años)</span>
               <span>17:30 a 18:30</span>

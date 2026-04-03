@@ -7,6 +7,7 @@ import HeartSection from "./components/HeartSection";
 import StarSection from "./components/StarSection";
 import AuthModal from "./components/AuthModal";
 import MessageInbox from "./components/MessageInbox";
+import Footer from "./components/Footer";
 
 const API_BASE = "http://localhost:3001";
 
@@ -21,6 +22,33 @@ function App() {
     localStorage.getItem("adminToken") || ""
   );
 
+  const [pendingCount, setPendingCount] = useState(0);
+
+  const fetchPendingCount = async (tokenToUse) => {
+    if (!tokenToUse) {
+      setPendingCount(0);
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_BASE}/api/messages/pending-count`, {
+        headers: {
+          Authorization: `Bearer ${tokenToUse}`,
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "No se pudo obtener el contador");
+      }
+
+      setPendingCount(data.total || 0);
+    } catch (error) {
+      console.error("Error al obtener mensajes pendientes:", error);
+    }
+  };
+
   const handleNavChange = (section) => {
     setActiveSection(section);
 
@@ -34,12 +62,13 @@ function App() {
     setHomeView("contact");
   };
 
-  const handleOpenAdmin = () => {
+  const handleOpenAdmin = async () => {
     if (!adminToken) {
       setAuthOpen(true);
       return;
     }
 
+    await fetchPendingCount(adminToken);
     setMessagesOpen(true);
   };
 
@@ -47,6 +76,7 @@ function App() {
     localStorage.removeItem("adminToken");
     setAdminToken("");
     setMessagesOpen(false);
+    setPendingCount(0);
   };
 
   const handleLogin = async ({ username, password }) => {
@@ -67,6 +97,7 @@ function App() {
     localStorage.setItem("adminToken", data.token);
     setAdminToken(data.token);
     setAuthOpen(false);
+    await fetchPendingCount(data.token);
     setMessagesOpen(true);
   };
 
@@ -74,6 +105,7 @@ function App() {
     const saved = localStorage.getItem("adminToken");
     if (saved) {
       setAdminToken(saved);
+      fetchPendingCount(saved);
     }
   }, []);
 
@@ -88,6 +120,7 @@ function App() {
             onChangeSection={handleNavChange}
             onOpenAdmin={handleOpenAdmin}
             isAdminLogged={Boolean(adminToken)}
+            pendingCount={pendingCount}
           />
 
           {activeSection === "home" && (
@@ -118,8 +151,11 @@ function App() {
               token={adminToken}
               onClose={() => setMessagesOpen(false)}
               onLogout={handleLogout}
+              onMessagesUpdated={() => fetchPendingCount(adminToken)}
             />
           )}
+
+          <Footer />
         </main>
       )}
     </div>

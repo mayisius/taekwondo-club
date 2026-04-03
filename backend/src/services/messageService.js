@@ -85,10 +85,20 @@ async function saveReply(id, reply) {
   );
 }
 
+async function countMessagesByStatus(status = "pending") {
+  const row = await getQuery(
+    `SELECT COUNT(*) as total FROM messages WHERE status = ?`,
+    [status]
+  );
+
+  return row?.total || 0;
+}
+
 module.exports = {
   createMessage,
   listMessages,
   getMessageById,
   updateMessageStatus,
   saveReply,
+  countMessagesByStatus,
 };

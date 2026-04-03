@@ -1,46 +1,31 @@
+import { useEffect } from "react";
 import ContactShortcut from "./ContactShortcut";
 
-const GOOGLE_REVIEWS_URL = "https://www.google.com/maps";
+const GOOGLE_REVIEWS_URL = "https://www.google.com/search?hl=es-ES&gl=es&q=CLUB+TAEKWONDO+VVA.+DEL+PARDILLO,+C.+R%C3%ADo+Ebro,+2,+28229+Villanueva+del+Pardillo,+Madrid&ludocid=15214901377532501328&lsig=AB86z5W7yCLHSVeb7XXdCL_g8oTy#lrd=0xd419c6cdd43cd0b:0xd3263030dc6d1d50,3";
 
 function StarSection({ onContactShortcut }) {
+  useEffect(() => {
+    const existingScript = document.querySelector(
+      'script[src="https://elfsightcdn.com/platform.js"]'
+    );
+
+    if (!existingScript) {
+      const script = document.createElement("script");
+      script.src = "https://elfsightcdn.com/platform.js";
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, []);
+
   return (
-    <section className="section-page section-with-shortcut">
-      <h2>Reseñas del club</h2>
+    <section className="section-page section-with-shortcut star-layout">
+      <h2 className="star-title">Reseñas del club</h2>
 
-      <p className="reviews-intro">
-        Aquí dejaremos preparada la sección de reseñas. Para una integración
-        real con Google Reviews necesitaremos después un enlace o servicio de
-        terceros, porque Google no ofrece un widget simple de reseñas incrustadas
-        como tal.
-      </p>
-
-      <div className="reviews-grid">
-        <article className="review-card">
-          <div className="review-stars">★★★★★</div>
-          <p>
-            Ambiente cercano, clases muy bien organizadas y gran atención a los
-            alumnos.
-          </p>
-          <span>— Reseña destacada</span>
-        </article>
-
-        <article className="review-card">
-          <div className="review-stars">★★★★★</div>
-          <p>
-            Muy buena combinación entre disciplina, técnica y motivación para
-            seguir mejorando.
-          </p>
-          <span>— Reseña destacada</span>
-        </article>
-
-        <article className="review-card">
-          <div className="review-stars">★★★★★</div>
-          <p>
-            Club muy recomendable para niños y adultos; se nota el cuidado por
-            el grupo.
-          </p>
-          <span>— Reseña destacada</span>
-        </article>
+      <div className="star-reviews-wrapper">
+        <div
+          className="elfsight-app-b35385b5-3ed1-4c8f-b21f-75f029947da8"
+          data-elfsight-app-lazy
+        ></div>
       </div>
 
       <a
@@ -49,7 +34,7 @@ function StarSection({ onContactShortcut }) {
         rel="noreferrer"
         className="reviews-link"
       >
-        Ver reseñas en Google
+        ¡Déjanos un comentario!
       </a>
 
       <ContactShortcut onClick={onContactShortcut} />

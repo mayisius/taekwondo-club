@@ -1,4 +1,6 @@
 import ContactShortcut from "./ContactShortcut";
+import logo from "../assets/logo.png";
+import "../index.css";
 
 function HeartSection({ onContactShortcut }) {
   const handleLogoClick = () => {
@@ -29,7 +31,7 @@ function HeartSection({ onContactShortcut }) {
       </p>
 
       <button className="heart-logo-button" onClick={handleLogoClick} type="button">
-        Logo del club
+        <img src={logo} alt="Logo del club" className="heart-logo-image" />
       </button>
 
       <ContactShortcut onClick={onContactShortcut} />
