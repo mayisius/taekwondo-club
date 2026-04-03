@@ -123,8 +123,6 @@ Other:
 
 ## Screenshots
 
-## Screenshots
-
 ### Navigation Hub
 ![Tatami](screenshots/tatami-navigation.png)
 
