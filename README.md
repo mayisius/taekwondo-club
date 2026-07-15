@@ -98,8 +98,6 @@ This structure improves maintainability and scalability.
 
 ---
 
----
-
 ## Project Status
 
 > **Current status: active development — functional local MVP, not yet deployed to production.**
