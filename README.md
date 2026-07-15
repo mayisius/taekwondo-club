@@ -62,8 +62,9 @@ The application consists of two main parts:
 - Messages are stored in a database
 
 ### Admin Panel
-- Secure login system using JWT authentication
-- Passwords stored using bcrypt hashing
+- Admin login using JWT authentication
+- Current authentication flow based on a single expiring token
+- Passwords stored as bcrypt hashes
 - Protected message inbox with:
   - Status workflow (pending, answered, trash)
   - Pagination
@@ -97,7 +98,64 @@ This structure improves maintainability and scalability.
 
 ---
 
-## Tech Stack
+---
+
+## Project Status
+
+> **Current status: active development — functional local MVP, not yet deployed to production.**
+
+The core full-stack application is currently functional in a local development environment. It includes a React frontend, a Node.js and Express REST API, SQLite persistence, JWT-based admin authentication, message management workflows, SMTP email integration, and backend logging.
+
+The next stage of the project will focus on production deployment, authentication hardening, infrastructure design, and long-term maintainability. The improvements listed below are planned and have not yet been implemented.
+
+---
+
+## Development Roadmap
+
+### Production Deployment
+
+- [ ] Containerize the backend and supporting services.
+- [ ] Use Docker Compose to define and orchestrate the application environment.
+- [ ] Serve the frontend and expose the API through Nginx.
+- [ ] Configure Nginx as a reverse proxy and TLS termination point.
+- [ ] Enable HTTPS for all communication between clients and the public application.
+- [ ] Separate development and production environment configuration.
+
+### Authentication and Security
+
+- [ ] Replace `bcryptjs` with Argon2 for password hashing.
+- [ ] Replace the current single-JWT authentication flow with short-lived access tokens and rotating refresh tokens.
+- [ ] Implement refresh-token revocation and secure logout handling.
+- [ ] Evaluate multi-factor authentication for the administrator account.
+- [ ] Add request validation, rate limiting, security headers, and stricter production CORS configuration.
+- [ ] Improve secret and environment-variable management for production.
+
+### Database and Data Protection
+
+- [ ] Migrate persistence from SQLite to PostgreSQL.
+- [ ] Introduce database migrations and production seed scripts.
+- [ ] Implement automated database backups.
+- [ ] Store backups in S3-compatible object storage, such as MinIO.
+
+### Scalability and Performance
+
+The following components will be introduced if application traffic and deployment requirements justify them:
+
+- [ ] Add PgBouncer to manage PostgreSQL connection pooling when running multiple API instances.
+- [ ] Introduce Redis caching for frequently requested or read-heavy data.
+- [ ] Define cache invalidation and expiration strategies before enabling caching.
+- [ ] Add health checks and prepare the API for horizontal scaling.
+
+### Testing and Operations
+
+- [ ] Add automated unit and integration tests.
+- [ ] Add authentication and API endpoint tests.
+- [ ] Configure a CI/CD workflow for testing and deployment.
+- [ ] Improve monitoring, structured logging, and production error tracking.
+
+---
+
+## Current Tech Stack
 
 Frontend:
 - React
@@ -118,6 +176,18 @@ Other:
 - Nodemailer (email integration)
 - Custom file-based logging
 - Git (version control)
+
+---
+
+### Planned Production Infrastructure
+
+- Docker and Docker Compose
+- Nginx
+- PostgreSQL
+- Argon2
+- Access and refresh token authentication
+- Optional administrator MFA
+- PgBouncer, Redis, and MinIO if required by future scale
 
 ---
 
